@@ -64,6 +64,7 @@ baseComponent =
         @publish.apply @, arguments
 
     publish: ->
+        # TODO add namespace feature? 
         root = if @isRootComponent then @ else @context.root
         if 0 < root._pubsub.listeners(arguments[0]).length
             root._pubsub.emit.apply root._pubsub, arguments
@@ -105,11 +106,17 @@ createBaseOptions = (opts)->
     opts.mixins.unshift baseComponent
 
     opts.events = {} unless opts.events
+    opts.source = {} unless opts.source
 
     # default render
-    if opts.template && !opts.render
-        opts.render = ->
-            @template @
+    if !opts.render
+        if opts.template
+            opts.render = ->
+                @source.props = @props
+                @source.state = @state
+                @template @source
+        else
+            opts.render = -> ''
 
     opts
 

@@ -119,18 +119,26 @@ createBaseOptions = function(opts) {
   if (!opts.events) {
     opts.events = {};
   }
-  if (opts.template && !opts.render) {
-    opts.render = function() {
-      return this.template(this);
-    };
+  if (!opts.source) {
+    opts.source = {};
+  }
+  if (!opts.render) {
+    if (opts.template) {
+      opts.render = function() {
+        this.source.props = this.props;
+        this.source.state = this.state;
+        return this.template(this.source);
+      };
+    } else {
+      opts.render = function() {
+        return '';
+      };
+    }
   }
   return opts;
 };
 
 createRootOptions = function(opts) {
-  if (!opts.name) {
-    throw new Error('root component requires name option');
-  }
   opts = createBaseOptions(opts);
   opts.isRootComponent = true;
   opts.mixins.unshift(rootComponent);
