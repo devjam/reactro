@@ -1,7 +1,7 @@
 'use strict'
 reactro = require 'reactro'
 
-module.exports = reactro.createComponent
+module.exports = reactro.createSubComponent
   #-----
   # Init
   #

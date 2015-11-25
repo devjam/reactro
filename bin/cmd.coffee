@@ -65,12 +65,15 @@ actions =
     script = opts.script if -1 != data.script.indexOf opts.script
     template = data.config.template
     template = opts.template if -1 != data.template.indexOf opts.template
+    css = data.config.css
+    css = opts.css if -1 != data.css.indexOf opts.css
 
-    # console.log process.cwd(), name, type, script, template
+    # console.log process.cwd(), name, type, script, template, css
 
     mkdirp.sync name
     fs.writeFileSync name + '/index.' + script, fs.readFileSync tmplDir + '/' + type + '.' + script
     fs.writeFileSync name + '/template.' + template, fs.readFileSync tmplDir + '/template.' + template
+    fs.writeFileSync name + '/style.' + css, fs.readFileSync tmplDir + '/style.' + css
 
     process.exit()
 
@@ -98,6 +101,8 @@ actions =
         console.log data.script
       when 'template'
         console.log data.template
+      when 'css'
+        console.log data.css
       else
         console.log data
     process.exit()
@@ -109,15 +114,17 @@ commands = [
   ['c', 'create', '      create component files, use with following options', actions.create]
   ['  name=*', '         component name required', ->]
   # ['  type=*', '         component type [sub, root] default: sub', ->]
-  ['  script=*', '       use script type from script list', ->]
-  ['  template=*', '     use template engine type from template engine list', ->]
+  ['  script=*', '       choose script type', ->]
+  ['  template=*', '     choose template type', ->]
+  ['  css=*', '          choose css type', ->]
   ['  root', '           use root type componet', ->]
   # ['i', 'interactive', ' interactive create mode', actions.interactive]
   # ['s', 'setting', '     interactive config setting mode', actions.setting]
   ['show', 'show=all', ' show all of data', actions.show]
   ['show=config', '      show config', actions.show]
-  ['show=script', '      show script list', actions.show]
-  ['show=template', '    show template engine list', actions.show]
+  ['show=script', '      show script type list', actions.show]
+  ['show=template', '    show template type list', actions.show]
+  ['show=css', '         show css type list', actions.show]
 ]
 
 for command in commands

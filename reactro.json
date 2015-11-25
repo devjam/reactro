@@ -5,8 +5,12 @@
   "template": [
     "rjade"
   ],
+  "css": [
+    "scss"
+  ],
   "config": {
     "script": "coffee",
-    "template": "rjade"
+    "template": "rjade",
+    "css": "scss"
   }
 }
