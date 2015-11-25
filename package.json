@@ -1,9 +1,13 @@
 {
   "name": "reactro",
-  "description": "react helper",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "description": "react wrapper",
+  "main": "index.js",
+  "bin": {
+    "reactro": "bin/cmd.js"
+  },
   "scripts": {
-    "build": "coffee -bc index.coffee",
+    "build": "coffee -bc index.coffee; coffee -bc --no-header bin/cmd.coffee",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,22 +16,23 @@
   },
   "keywords": [
     "react",
+    "wrapper",
     "helper"
   ],
   "bugs": {
     "url": "https://github.com/devjam/reactro/issues"
   },
   "homepage": "https://github.com/devjam/reactro",
-  "main": "index.js",
   "license": "MIT",
   "dependencies": {
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
+    "mkdirp": "^0.5.1",
     "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react-dom": "^0.14.0",
+    "readline": "^1.1.0"
   },
   "devDependencies": {
-    "browserify": "^10.1.3",
     "coffee-script": "^1.9.2"
   }
 }

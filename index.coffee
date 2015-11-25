@@ -28,7 +28,7 @@ rootComponent =
         @_pubsub.removeAllListeners()
 
 
-baseComponent =
+subComponent =
     # context
     contextTypes:
         root: React.PropTypes.object
@@ -60,17 +60,16 @@ baseComponent =
         @$find().off()
 
     ## pub/sub
-    pub: ->
-        @publish.apply @, arguments
-
     publish: ->
-        # TODO add namespace feature? 
+        # TODO add namespace feature?
         root = if @isRootComponent then @ else @context.root
         if 0 < root._pubsub.listeners(arguments[0]).length
             root._pubsub.emit.apply root._pubsub, arguments
         else if !@isTopLevelRootComponent
             root.context.root.publish.apply @, arguments
 
+    pub: ->
+        @publish.apply @, arguments
 
     # utils
     find: (refs)->
@@ -98,23 +97,23 @@ baseComponent =
     #     root
 
 
-createBaseOptions = (opts)->
+createSubOptions = (opts)->
     if opts.name && !opts.displayName
         opts.displayName = opts.name
 
     opts.mixins = [] unless opts.mixins
-    opts.mixins.unshift baseComponent
+    opts.mixins.unshift subComponent
 
     opts.events = {} unless opts.events
-    opts.source = {} unless opts.source
+    opts.templateData = {} unless opts.templateData
 
     # default render
     if !opts.render
         if opts.template
             opts.render = ->
-                @source.props = @props
-                @source.state = @state
-                @template @source
+                @templateData.props = @props
+                @templateData.state = @context.root.state
+                @template @templateData
         else
             opts.render = -> ''
 
@@ -123,7 +122,7 @@ createBaseOptions = (opts)->
 
 createRootOptions = (opts)->
     # throw new Error 'root component requires name option' if !opts.name
-    opts = createBaseOptions opts
+    opts = createSubOptions opts
     opts.isRootComponent = true
     opts.mixins.unshift rootComponent
 
@@ -134,13 +133,13 @@ createRootOptions = (opts)->
 
 
 module.exports =
-    createComponent: (opts)->
-        React.createClass createBaseOptions opts
-
     createRootComponent: (opts)->
         React.createClass createRootOptions opts
 
-    renderRoot: (selector, component, props = null)->
+    createSubComponent: (opts)->
+        React.createClass createSubOptions opts
+
+    render: (selector, component, props = null)->
         container = $(selector)[0]
         ReactDom.render(
             React.createElement component, props

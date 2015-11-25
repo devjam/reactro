@@ -1,0 +1,12 @@
+{
+  "script": [
+    "coffee"
+  ],
+  "template": [
+    "rjade"
+  ],
+  "config": {
+    "script": "coffee",
+    "template": "rjade"
+  }
+}
