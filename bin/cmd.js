@@ -60,7 +60,7 @@ actions = {
     return process.exit();
   },
   create: function() {
-    var name, script, template, type;
+    var css, name, script, template, type;
     if (!opts.name || opts.name === true) {
       error('name is required with create command, see following help');
     }
@@ -74,9 +74,14 @@ actions = {
     if (-1 !== data.template.indexOf(opts.template)) {
       template = opts.template;
     }
+    css = data.config.css;
+    if (-1 !== data.css.indexOf(opts.css)) {
+      css = opts.css;
+    }
     mkdirp.sync(name);
     fs.writeFileSync(name + '/index.' + script, fs.readFileSync(tmplDir + '/' + type + '.' + script));
     fs.writeFileSync(name + '/template.' + template, fs.readFileSync(tmplDir + '/template.' + template));
+    fs.writeFileSync(name + '/style.' + css, fs.readFileSync(tmplDir + '/style.' + css));
     return process.exit();
   },
   interactive: function() {
@@ -96,6 +101,9 @@ actions = {
       case 'template':
         console.log(data.template);
         break;
+      case 'css':
+        console.log(data.css);
+        break;
       default:
         console.log(data);
     }
@@ -103,7 +111,7 @@ actions = {
   }
 };
 
-commands = [['h', 'help', '        show help', actions.help], ['v', 'version', '     show version', actions.version], ['c', 'create', '      create component files, use with following options', actions.create], ['  name=*', '         component name required', function() {}], ['  script=*', '       use script type from script list', function() {}], ['  template=*', '     use template engine type from template engine list', function() {}], ['  root', '           use root type componet', function() {}], ['show', 'show=all', ' show all of data', actions.show], ['show=config', '      show config', actions.show], ['show=script', '      show script list', actions.show], ['show=template', '    show template engine list', actions.show]];
+commands = [['h', 'help', '        show help', actions.help], ['v', 'version', '     show version', actions.version], ['c', 'create', '      create component files, use with following options', actions.create], ['  name=*', '         component name required', function() {}], ['  script=*', '       choose script type', function() {}], ['  template=*', '     choose template type', function() {}], ['  css=*', '          choose css type', function() {}], ['  root', '           use root type componet', function() {}], ['show', 'show=all', ' show all of data', actions.show], ['show=config', '      show config', actions.show], ['show=script', '      show script type list', actions.show], ['show=template', '    show template type list', actions.show], ['show=css', '         show css type list', actions.show]];
 
 for (j = 0, len1 = commands.length; j < len1; j++) {
   command = commands[j];
