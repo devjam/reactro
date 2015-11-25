@@ -148,7 +148,7 @@ but can't use props and state keyword.
 ### Generate Component Files
 use `reactro` command or copy `tmpl` directory.
 
-#### Prepear
+#### Prepare
 you can choose way of calling local command below.
 
 ##### Use `npm bin`
