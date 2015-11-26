@@ -56,7 +56,7 @@ return root component object.
 can use React.createClass opts.
 
 ###### name
-if doesn't set displayName, overwite displayName.  
+if doesn't set displayName, overwrite displayName.  
 will use for namespace.
 
 ###### template

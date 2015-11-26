@@ -112,7 +112,7 @@ createSubOptions = (opts)->
         if opts.template
             opts.render = ->
                 @templateData.props = @props
-                @templateData.state = @context.root.state
+                @templateData.state = if @isRootComponent then @state else @context.root.state
                 @template @templateData
         else
             opts.render = -> ''

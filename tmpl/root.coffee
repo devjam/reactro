@@ -3,7 +3,7 @@ reactro = require 'reactro'
 
 module.exports = reactro.createRootComponent
   #-----
-  # Init
+  # for Reactro
   #
   name: ''
 
@@ -18,6 +18,10 @@ module.exports = reactro.createRootComponent
   #   dom:
   #     'type; delegate-selector': (e)->
 
+  #-----
+  # for React
+  #
+  # # if use reactro.template, render will be set automatically.
   # render: ->
   #   console.log @name, 'render'
 
@@ -25,7 +29,7 @@ module.exports = reactro.createRootComponent
   # statics: {}
   # propTypes: {}
   # getDefaultProps: -> {}
-  # getInitialState: -> {}
+  getInitialState: -> {}
   # displayName: ''
 
 

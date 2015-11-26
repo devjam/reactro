@@ -3,7 +3,7 @@ reactro = require 'reactro'
 
 module.exports = reactro.createSubComponent
   #-----
-  # Init
+  # for Reactro
   #
   name: ''
 
@@ -15,6 +15,10 @@ module.exports = reactro.createSubComponent
   #   'type; delegate-selector': (e)->
   #   'type type2; delegate-selector': (e)->
 
+  #-----
+  # for React
+  #
+  # # if use reactro.template, render will be set automatically.
   # render: ->
   #   console.log @name, 'render'
 
@@ -22,7 +26,7 @@ module.exports = reactro.createSubComponent
   # statics: {}
   # propTypes: {}
   # getDefaultProps: -> {}
-  # getInitialState: -> {}
+  # # getInitialState: -> {} # don't have state data in sub component.
   # displayName: ''
 
 
