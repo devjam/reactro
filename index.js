@@ -126,7 +126,7 @@ createSubOptions = function(opts) {
     if (opts.template) {
       opts.render = function() {
         this.templateData.props = this.props;
-        this.templateData.state = this.context.root.state;
+        this.templateData.state = this.isRootComponent ? this.state : this.context.root.state;
         return this.template(this.templateData);
       };
     } else {
