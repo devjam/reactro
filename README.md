@@ -124,6 +124,11 @@ ReactDom.render wrapper.
 render component into DOM element selected by selector.  
 component will be converted to element with props.
 
+#### renderToString(component, props, state)
+ReactDomServer.renderToString wrapper.
+component will be converted to element with props.
+dummy RootComponent will be generated when current component is SubComponent or state will set and then state will be used as RootComponent state for component.
+
 ### Component Object
 
 #### Methods

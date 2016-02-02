@@ -3,6 +3,7 @@
 
 React = require 'react'
 ReactDom = require 'react-dom'
+ReactDomServer = require 'react-dom/server'
 
 bind = require 'lodash/function/bind'
 $ = require 'jquery'
@@ -146,3 +147,12 @@ module.exports =
             React.createElement component, props
             container
         )
+
+    renderToString: (component, props = null, state = null)->
+        element = React.createElement component, props
+        if !component.prototype.isRootComponent || state != null
+            _element = element
+            element = React.createElement React.createClass createRootOptions
+                getInitialState: -> state
+                render: -> React.createElement 'div', null, _element
+        ReactDomServer.renderToString element
