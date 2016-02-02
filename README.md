@@ -1,6 +1,11 @@
 # reactro
-react wrapper.  
+react wrapper and template component generating command.  
+add backbone like events with jquery.  
+add helper for nested components like pubsub event etc.
 <!--[sample source](http://)-->
+
+## Why Reactro
+flux framework is too huge(overdone) for me.
 
 ## Install
 ```sh
@@ -188,3 +193,9 @@ cd /path/to/put/component/dir
 npmbin reactro create name=component_name
 ```
 generated files into `/path/to/put/component/dir/component_name`
+
+## TODO / WIP
+- add more vurius type tmplate for generate command
+- add interactive mode to generate command
+- add config setting to generate command
+- more support for nested components include root nesting

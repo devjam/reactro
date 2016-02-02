@@ -4,7 +4,7 @@
 React = require 'react'
 ReactDom = require 'react-dom'
 
-_ = require 'lodash'
+bind = require 'lodash/function/bind'
 $ = require 'jquery'
 
 rootComponent =
@@ -22,7 +22,7 @@ rootComponent =
         events = @events.pubsub if @events.pubsub
         events = @events.subscribe if @events.subscribe
         for key, val of events
-            @_pubsub.on key, _.bind val, @
+            @_pubsub.on key, bind val, @
 
     componentWillUnmount: ->
         @_pubsub.removeAllListeners()
@@ -46,18 +46,19 @@ subComponent =
     ## DOM event
     componentDidMount: ->
         # add DOM event
-        $rootDOM = @$find()
+        $rootDOM = $ @find()
         events = if @events.dom then @events.dom else @events
         for key, val of events
             [type, delegate] = key.split ';'
             if delegate
-                $rootDOM.on type, delegate, _.bind val, @
+                $rootDOM.on type, delegate, bind val, @
             else
-                $rootDOM.on type, _.bind val, @
+                $rootDOM.on type, bind val, @
 
     componentWillUnmount: ->
         # remove DOM event
-        @$find().off()
+        $ @find()
+          .off()
 
     ## pub/sub
     publish: ->
@@ -78,8 +79,8 @@ subComponent =
         else
             ReactDom.findDOMNode @
 
-    $find: (refs)->
-        $ @find refs
+    # $find: (refs)->
+    #     $ @find refs
 
     getState: ->
         @context.root.state
