@@ -149,10 +149,13 @@ module.exports =
         )
 
     renderToString: (component, props = null, state = null)->
-        element = React.createElement component, props
-        if !component.prototype.isRootComponent || state != null
-            _element = element
-            element = React.createElement React.createClass createRootOptions
-                getInitialState: -> state
-                render: -> React.createElement 'div', null, _element
+        if React.isValidElement component
+            element = component
+        else
+            element = React.createElement component, props
+            if !component.prototype.isRootComponent || state != null
+                _element = element
+                element = React.createElement React.createClass createRootOptions
+                    getInitialState: -> state
+                    render: -> React.createElement 'div', null, _element
         ReactDomServer.renderToString element
