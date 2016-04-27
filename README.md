@@ -1,6 +1,6 @@
 # reactro
 react wrapper and template component generating command.  
-add backbone like events with jquery.  
+add backbone like events with `dom-delegate`.  
 add helper for nested components like pubsub event etc.
 <!--[sample source](http://)-->
 
@@ -142,9 +142,6 @@ publish ailas.
 ##### find(ref)
 get dom element by ref.  
 if you don't use ref like `find()`, component dom element is returned.
-
-##### $find(ref)
-get ref element jquery object.
 
 ##### getState()
 get root state object.
