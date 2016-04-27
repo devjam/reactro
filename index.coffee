@@ -1,12 +1,10 @@
 'use strict'
 {EventEmitter} = require 'events'
+delegate = require 'dom-delegate'
 
 React = require 'react'
 ReactDom = require 'react-dom'
 ReactDomServer = require 'react-dom/server'
-
-bind = require 'lodash/function/bind'
-$ = require 'jquery'
 
 rootComponent =
     # context
@@ -23,7 +21,7 @@ rootComponent =
         events = @events.pubsub if @events.pubsub
         events = @events.subscribe if @events.subscribe
         for key, val of events
-            @_pubsub.on key, bind val, @
+            @_pubsub.on key, val.bind @
 
     componentWillUnmount: ->
         @_pubsub.removeAllListeners()
@@ -47,19 +45,20 @@ subComponent =
     ## DOM event
     componentDidMount: ->
         # add DOM event
-        $rootDOM = $ @find()
+        @_domEventDelegate = delegate @find()
         events = if @events.dom then @events.dom else @events
         for key, val of events
-            [type, delegate] = key.split ';'
-            if delegate
-                $rootDOM.on type, delegate, bind val, @
+            [type, selector] = key.split ';'
+            if selector
+                @_domEventDelegate.on type, selector, val.bind @
             else
-                $rootDOM.on type, bind val, @
+                @_domEventDelegate.on type, val.bind @
 
     componentWillUnmount: ->
         # remove DOM event
-        $ @find()
-          .off()
+        if @_domEventDelegate
+            @_domEventDelegate.off()
+            @_domEventDelegate = null
 
     ## pub/sub
     publish: ->
@@ -79,9 +78,6 @@ subComponent =
             ReactDom.findDOMNode @refs[refs]
         else
             ReactDom.findDOMNode @
-
-    # $find: (refs)->
-    #     $ @find refs
 
     getState: ->
         @context.root.state
@@ -106,6 +102,7 @@ createSubOptions = (opts)->
     opts.mixins = [] unless opts.mixins
     opts.mixins.unshift subComponent
 
+    opts._domEventDelegate = null
     opts.events = {} unless opts.events
     opts.templateData = {} unless opts.templateData
 
@@ -141,8 +138,9 @@ module.exports =
     createSubComponent: (opts)->
         React.createClass createSubOptions opts
 
-    render: (selector, component, props = null)->
-        container = $(selector)[0]
+    render: (container, component, props = null)->
+        if '[object String]' == Object.prototype.toString.call container
+            container = document.querySelector container
         ReactDom.render(
             React.createElement component, props
             container
@@ -158,4 +156,14 @@ module.exports =
                 element = React.createElement React.createClass createRootOptions
                     getInitialState: -> state
                     render: -> React.createElement 'div', null, _element
+
+            # TODO 多分こっちのほうがいい。要検証
+            # if state != null
+            #     if element.isRootComponent
+            #         element.setState state
+            #     else
+            #         _element = element
+            #         element = React.createElement React.createClass createRootOptions
+            #             getInitialState: -> state
+            #             render: -> React.createElement 'div', null, _element
         ReactDomServer.renderToString element

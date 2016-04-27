@@ -1,6 +1,6 @@
 {
   "name": "reactro",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "react wrapper",
   "main": "index.js",
   "bin": {
@@ -25,8 +25,7 @@
   "homepage": "https://github.com/devjam/reactro",
   "license": "MIT",
   "dependencies": {
-    "jquery": "^2.1.4",
-    "lodash": "^3.10.1",
+    "dom-delegate": "^2.0.3",
     "mkdirp": "^0.5.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
