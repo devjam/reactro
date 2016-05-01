@@ -48,11 +48,12 @@ subComponent =
         @_domEventDelegate = delegate @find()
         events = if @events.dom then @events.dom else @events
         for key, val of events
-            [type, selector] = key.split ';'
-            if selector
-                @_domEventDelegate.on type, selector, val.bind @
-            else
-                @_domEventDelegate.on type, val.bind @
+            [types, selector] = key.split ';'
+            for type in types.split ' '
+                if selector
+                    @_domEventDelegate.on type, selector, val.bind @
+                else
+                    @_domEventDelegate.on type, val.bind @
 
     componentWillUnmount: ->
         # remove DOM event
