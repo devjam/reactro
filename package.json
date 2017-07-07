@@ -1,6 +1,6 @@
 {
   "name": "reactro",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "react wrapper",
   "main": "index.js",
   "bin": {
@@ -35,7 +35,7 @@
     "coffee-script": "^1.9.2"
   },
   "peerDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": ">=0.14.0",
+    "react-dom": ">=0.14.0"
   }
 }
