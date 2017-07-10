@@ -1,14 +1,13 @@
 {
   "name": "reactro",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "react wrapper",
-  "main": "index.js",
+  "main": "lib/reactro.js",
   "bin": {
-    "reactro": "bin/cmd.js"
+    "reactro": "lib/cmd.js"
   },
   "scripts": {
-    "build": "coffee -bc index.coffee; coffee -bc --no-header bin/cmd.coffee",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -30,12 +29,13 @@
     "readline": "^1.1.0"
   },
   "devDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
-    "coffee-script": "^1.9.2"
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "peerDependencies": {
-    "react": ">=0.14.0",
-    "react-dom": ">=0.14.0"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   }
 }

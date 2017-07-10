@@ -61,7 +61,7 @@ return root component object.
 can use React.createClass opts.
 
 ###### name
-if doesn't set displayName, overwrite displayName.  
+if doesn't set displayName, overwrite displayName.
 will use for namespace.
 
 ###### template
@@ -71,6 +71,10 @@ set React.createElement
 can set data for template resource.  
 props and root state will be set automatically.  
 so can't use props and state keyword.
+
+###### style
+set css string. It will be added into html head automatically when it will be needed.
+it needs name option if you use this featuer.
 
 ###### events
 can add DOM events and pubsub events.

@@ -1,16 +1,22 @@
 {
   "script": [
+    "js",
+    "babel",
     "coffee"
   ],
   "template": [
-    "rjade"
+    "jsx",
+    "jade",
+    "rjade",
+    "react.jade"
   ],
   "css": [
+    "css",
     "scss"
   ],
   "config": {
-    "script": "coffee",
-    "template": "rjade",
+    "script": "babel",
+    "template": "jade",
     "css": "scss"
   }
 }
