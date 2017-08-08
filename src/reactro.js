@@ -57,7 +57,7 @@ const subComponent = {
         style.setAttribute('type', 'text/css')
         style.setAttribute('data-component-name', this.name)
         style.setAttribute('data-component-count', 1)
-        style.innerText = this.style
+        style.innerHTML = this.style
         document.head.appendChild(style)
       }
     }
